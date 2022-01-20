@@ -50,6 +50,8 @@ bool int_max_value_dual_long_long_computed = false;
 bool int_max_value_primary_long_computed = false;
 bool int_max_value_primary_long_long_computed = false;
 
+renf_class_shared nmz_number_field;
+
 vector<vector<vector<long> > > CollectedAutoms(default_thread_limit); // for use in nmz_nauty.cpp
 
 #ifdef NMZ_EXTENDED_TESTS

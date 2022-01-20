@@ -99,6 +99,7 @@ NORMALIZ_DLL_EXPORT extern bool int_max_value_dual_long_computed;
 NORMALIZ_DLL_EXPORT extern bool int_max_value_dual_long_long_computed;
 NORMALIZ_DLL_EXPORT extern bool int_max_value_primary_long_computed;
 NORMALIZ_DLL_EXPORT extern bool int_max_value_primary_long_long_computed;
+NORMALIZ_DLL_EXPORT extern renf_class_shared nmz_number_field;
 
 #ifdef NMZ_EXTENDED_TESTS
 NORMALIZ_DLL_EXPORT extern bool test_arith_overflow_full_cone, test_arith_overflow_dual_mode;

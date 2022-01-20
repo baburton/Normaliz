@@ -36,6 +36,7 @@ using namespace std;
 #include <gperftools/profiler.h>
 #endif
 
+#include "libnormaliz/general.h"
 #include "libnormaliz/integer.h"
 #include "libnormaliz/cone.h"
 #include "libnormaliz/output.h"
@@ -195,8 +196,7 @@ void compute_and_output(OptionsHandler& options,
                         const map<Type::InputType, vector<vector<InputNumberType> > >& add_input) {
     Output<ConeType> Out;  // all the information relevant for output is collected in this object
 
-    // const 
-    renf_class_shared number_field =
+    const renf_class_shared number_field =
 #ifdef ENFNORMALIZ
       number_field_ref.get();
 #else
@@ -359,10 +359,10 @@ int process_data(OptionsHandler& options, const string& command_line) {
         map<NumParam::Param, long> num_param_input;
         bool renf_read = false;
 
-        renf_class_shared number_field;
+        // renf_class_shared nmz_number_field;
 
         try {
-            input = readNormalizInput<mpq_class>(in, options, num_param_input, polynomial, number_field);
+            input = readNormalizInput<mpq_class>(in, options, num_param_input, polynomial,nmz_number_field);
             if (nmz_interrupted)
                 exit(10);
         }
@@ -373,7 +373,7 @@ int process_data(OptionsHandler& options, const string& command_line) {
 
             in.close();
             in.open(file_in, ifstream::in);
-            renf_input = readNormalizInput<renf_elem_class>(in, options, num_param_input, polynomial, number_field);
+            renf_input = readNormalizInput<renf_elem_class>(in, options, num_param_input, polynomial,nmz_number_field);
             if (nmz_interrupted)
                 exit(10);
             renf_read = true;
@@ -402,18 +402,18 @@ int process_data(OptionsHandler& options, const string& command_line) {
             // if(options.getToCompute().test(ConeProperty::Dynamic))
             renf_add_input = extract_additional_input<renf_elem_class>(renf_input);
 
-            compute_and_output<renf_elem_class>(options, renf_input, num_param_input, polynomial, number_field, renf_add_input);
+            compute_and_output<renf_elem_class>(options, renf_input, num_param_input, polynomial,nmz_number_field, renf_add_input);
         }
         else {
             if (options.isUseLongLong()) {
                 // if(options.getToCompute().test(ConeProperty::Dynamic))
                 add_input = extract_additional_input<mpq_class>(input);
-                compute_and_output<long long>(options, input, num_param_input, polynomial, number_field, add_input);
+                compute_and_output<long long>(options, input, num_param_input, polynomial,nmz_number_field, add_input);
             }
             else {
                 // if(options.getToCompute().test(ConeProperty::Dynamic))
                 add_input = extract_additional_input<mpq_class>(input);
-                compute_and_output<mpz_class>(options, input, num_param_input, polynomial, number_field, add_input);
+                compute_and_output<mpz_class>(options, input, num_param_input, polynomial,nmz_number_field, add_input);
             }
         }
 
