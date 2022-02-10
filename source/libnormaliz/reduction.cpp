@@ -211,7 +211,7 @@ void CandidateList<Integer>::reduce_by(CandidateList<Integer>& Reducers) {
         auto c = Candidates.begin();
         cpos = 0;
 
-#pragma omp for schedule(dynamic)
+#pragma omp for // schedule(dynamic)
         for (size_t k = 0; k < csize; ++k) {
             for (; k > cpos; ++cpos, ++c)
                 ;
